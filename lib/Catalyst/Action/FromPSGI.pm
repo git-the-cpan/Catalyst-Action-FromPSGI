@@ -1,6 +1,6 @@
 package Catalyst::Action::FromPSGI;
 {
-  $Catalyst::Action::FromPSGI::VERSION = '0.001000';
+  $Catalyst::Action::FromPSGI::VERSION = '0.001001';
 }
 
 # ABSTRACT: Use a Plack app as a Catalyst action
@@ -45,8 +45,8 @@ sub execute {
 
 1;
 
-
 __END__
+
 =pod
 
 =head1 NAME
@@ -55,7 +55,7 @@ Catalyst::Action::FromPSGI - Use a Plack app as a Catalyst action
 
 =head1 VERSION
 
-version 0.001000
+version 0.001001
 
 =head1 SYNOPSIS
 
@@ -136,4 +136,3 @@ This is free software; you can redistribute it and/or modify it under
 the same terms as the Perl 5 programming language system itself.
 
 =cut
-

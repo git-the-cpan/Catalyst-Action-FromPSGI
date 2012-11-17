@@ -1,0 +1,22 @@
+---
+abstract: 'Use a Plack app as a Catalyst action'
+author:
+  - "Arthur Axel \"fREW\" Schmidt <frioux+cpan@gmail.com>"
+build_requires: {}
+configure_requires:
+  ExtUtils::MakeMaker: 6.30
+dynamic_config: 0
+generated_by: 'Dist::Zilla version 4.300028, CPAN::Meta::Converter version 2.120921'
+license: perl
+meta-spec:
+  url: http://module-build.sourceforge.net/META-spec-v1.4.html
+  version: 1.4
+name: Catalyst-Action-FromPSGI
+requires:
+  Catalyst::Runtime: 5.90013
+  Plack: 0.9920
+  Test::More: 0.88
+  Web::Simple: 0.016
+resources:
+  repository: git://github.com/frioux/Catalyst-Action-FromPSGI.git
+version: 0.001001

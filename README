@@ -2,7 +2,7 @@ NAME
     Catalyst::Action::FromPSGI - Use a Plack app as a Catalyst action
 
 VERSION
-    version 0.001000
+    version 0.001001
 
 SYNOPSIS
     First, you have a plack app you wrote and want to use:
