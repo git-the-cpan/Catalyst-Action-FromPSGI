@@ -1,9 +1,9 @@
 package Catalyst::Action::FromPSGI;
 {
-  $Catalyst::Action::FromPSGI::VERSION = '0.001001';
+  $Catalyst::Action::FromPSGI::VERSION = '0.001002';
 }
 
-# ABSTRACT: Use a Plack app as a Catalyst action
+# ABSTRACT: Use a PSGI app as a Catalyst action
 
 use strict;
 use warnings;
@@ -21,10 +21,10 @@ sub nest_app {
    $path =~ s/\Q$rest\E$//;
    $nest->map( $path => $app );
 
-   return $nest
+   return $nest->to_app
 }
 
-sub snort_plack_response {
+sub snort_psgi {
    my ($self, $c, $r) = @_;
 
    $c->res->status($r->code);
@@ -38,7 +38,7 @@ sub execute {
    my $app = $self->code->($controller, $c, @rest);
    my $nest = $self->nest_app($c, $app);
    my $res = res_from_psgi($nest->($c->req->env));
-   $self->snort_plack_response($c, $res);
+   $self->snort_psgi($c, $res);
 
    return;
 }
@@ -51,15 +51,15 @@ __END__
 
 =head1 NAME
 
-Catalyst::Action::FromPSGI - Use a Plack app as a Catalyst action
+Catalyst::Action::FromPSGI - Use a PSGI app as a Catalyst action
 
 =head1 VERSION
 
-version 0.001001
+version 0.001002
 
 =head1 SYNOPSIS
 
-First, you have a plack app you wrote and want to use:
+First, you have a psgi app you wrote and want to use:
 
  package MyApp::WS::App;
 
@@ -87,7 +87,7 @@ Now you want to reuse this app in a Catalyst action:
 
  use base 'Catalyst::Controller';
 
- sub say_hi :Path('/say_hi_to') ActionClass('FromPlack') {
+ sub say_hi :Path('/say_hi_to') ActionClass('FromPSGI') {
    my ($self, $c, $name, @args) = @_;
 
    MyApp::WS::App->new(name => $name)->to_psgi_app
@@ -99,21 +99,21 @@ The above would yield C<'Hello fREW'> for the request to
 C</say_hi_to/fREW/hi>.
 
 Of course the above example is contrived, but keep in mind this will work for
-any of the myriad Plack apps out there.
+any of the myriad PSGI apps out there.
 
 =head1 DESCRIPTION
 
-C<Catalyst::Action::FromPlack> gives you a handy way to mount Plack apps
+C<Catalyst::Action::FromPSGI> gives you a handy way to mount PSGI apps
 under Catalyst actions.
 
 Note that because Catalyst is in control of the dispatch cycle any limitations
-you place on it will be placed on the Plack app as well.  So for example:
+you place on it will be placed on the PSGI app as well.  So for example:
 
- sub foo : Path('/foo') Args(1) ActionClass('FromPlack') { ... }
+ sub foo : Path('/foo') Args(1) ActionClass('FromPSGI') { ... }
 
-will never run the Plack app if the url is C</foo/bar/baz> because the
+will never run the PSGI app if the url is C</foo/bar/baz> because the
 Catalyst dispatcher won't even match for more than one argument.  For this
-reason I recommend leaving C<Args> unspecified for C<FromPlack> actions.
+reason I recommend leaving C<Args> unspecified for C<FromPSGI> actions.
 
 I actually made this because I'm interested in using L<Web::Machine> instead
 of L<Catalyst::Action::REST> and possibly even replacing my chaining code
@@ -130,7 +130,7 @@ Arthur Axel "fREW" Schmidt <frioux+cpan@gmail.com>
 
 =head1 COPYRIGHT AND LICENSE
 
-This software is copyright (c) 2012 by Arthur Axel "fREW" Schmidt.
+This software is copyright (c) 2013 by Arthur Axel "fREW" Schmidt.
 
 This is free software; you can redistribute it and/or modify it under
 the same terms as the Perl 5 programming language system itself.

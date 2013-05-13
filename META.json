@@ -1,10 +1,10 @@
 {
-   "abstract" : "Use a Plack app as a Catalyst action",
+   "abstract" : "Use a PSGI app as a Catalyst action",
    "author" : [
       "Arthur Axel \"fREW\" Schmidt <frioux+cpan@gmail.com>"
    ],
    "dynamic_config" : 0,
-   "generated_by" : "Dist::Zilla version 4.300028, CPAN::Meta::Converter version 2.120921",
+   "generated_by" : "Dist::Zilla version 4.300034, CPAN::Meta::Converter version 2.130880",
    "license" : [
       "perl_5"
    ],
@@ -41,6 +41,6 @@
          "web" : "http://github.com/frioux/Catalyst-Action-FromPSGI"
       }
    },
-   "version" : "0.001001"
+   "version" : "0.001002"
 }
 
