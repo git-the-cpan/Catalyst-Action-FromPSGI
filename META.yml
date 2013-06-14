@@ -18,5 +18,6 @@ requires:
   Test::More: 0.88
   Web::Simple: 0.016
 resources:
+  bugtracker: https://github.com/frioux/Catalyst-Action-FromPSGI/issues
   repository: git://github.com/frioux/Catalyst-Action-FromPSGI.git
-version: 0.001002
+version: 0.001003

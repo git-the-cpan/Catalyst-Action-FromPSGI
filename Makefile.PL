@@ -26,7 +26,7 @@ my %WriteMakefileArgs = (
     "Web::Simple" => "0.016"
   },
   "TEST_REQUIRES" => {},
-  "VERSION" => "0.001002",
+  "VERSION" => "0.001003",
   "test" => {
     "TESTS" => "t/*.t"
   }

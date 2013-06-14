@@ -1,6 +1,6 @@
 package Catalyst::Action::FromPSGI;
 {
-  $Catalyst::Action::FromPSGI::VERSION = '0.001002';
+  $Catalyst::Action::FromPSGI::VERSION = '0.001003';
 }
 
 # ABSTRACT: Use a PSGI app as a Catalyst action
@@ -18,7 +18,7 @@ sub nest_app {
 
    my $path = '/' . $c->request->path;
    my $rest = join '/', @{$c->request->arguments};
-   $path =~ s/\Q$rest\E$//;
+   $path =~ s/\Q$rest\E\/?$//;
    $nest->map( $path => $app );
 
    return $nest->to_app
@@ -55,7 +55,7 @@ Catalyst::Action::FromPSGI - Use a PSGI app as a Catalyst action
 
 =head1 VERSION
 
-version 0.001002
+version 0.001003
 
 =head1 SYNOPSIS
 
