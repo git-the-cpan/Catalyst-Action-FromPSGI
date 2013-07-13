@@ -1,6 +1,6 @@
 package Catalyst::Action::FromPSGI;
 {
-  $Catalyst::Action::FromPSGI::VERSION = '0.001003';
+  $Catalyst::Action::FromPSGI::VERSION = '0.001004';
 }
 
 # ABSTRACT: Use a PSGI app as a Catalyst action
@@ -37,6 +37,14 @@ sub execute {
 
    my $app = $self->code->($controller, $c, @rest);
    my $nest = $self->nest_app($c, $app);
+
+   my $body = $c->req->body;
+   $c->req->env->{'psgi.input'} = ref $body
+      ? do { $body->seek(0, 0); $body }
+      : do { open my $fh, '<', \$body; $fh }
+   ;
+   $c->req->env->{'psgix.input.buffered'} = 1;
+
    my $res = res_from_psgi($nest->($c->req->env));
    $self->snort_psgi($c, $res);
 
@@ -55,7 +63,7 @@ Catalyst::Action::FromPSGI - Use a PSGI app as a Catalyst action
 
 =head1 VERSION
 
-version 0.001003
+version 0.001004
 
 =head1 SYNOPSIS
 
