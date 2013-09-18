@@ -1,6 +1,6 @@
 package Catalyst::Action::FromPSGI;
 {
-  $Catalyst::Action::FromPSGI::VERSION = '0.001004';
+  $Catalyst::Action::FromPSGI::VERSION = '0.001005';
 }
 
 # ABSTRACT: Use a PSGI app as a Catalyst action
@@ -10,6 +10,7 @@ use warnings;
 use base 'Catalyst::Action';
 use HTTP::Message::PSGI qw(res_from_psgi);
 use Plack::App::URLMap;
+use Plack::Request;
 
 sub nest_app {
    my ($self, $c, $app) = @_;
@@ -38,7 +39,7 @@ sub execute {
    my $app = $self->code->($controller, $c, @rest);
    my $nest = $self->nest_app($c, $app);
 
-   my $body = $c->req->body;
+   my $body = Plack::Request->new($c->req->env)->body;
    $c->req->env->{'psgi.input'} = ref $body
       ? do { $body->seek(0, 0); $body }
       : do { open my $fh, '<', \$body; $fh }
@@ -63,7 +64,7 @@ Catalyst::Action::FromPSGI - Use a PSGI app as a Catalyst action
 
 =head1 VERSION
 
-version 0.001004
+version 0.001005
 
 =head1 SYNOPSIS
 

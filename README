@@ -2,7 +2,7 @@ NAME
     Catalyst::Action::FromPSGI - Use a PSGI app as a Catalyst action
 
 VERSION
-    version 0.001004
+    version 0.001005
 
 SYNOPSIS
     First, you have a psgi app you wrote and want to use:

@@ -5,6 +5,7 @@ META.json
 META.yml
 Makefile.PL
 README
+cpanfile
 dist.ini
 lib/Catalyst/Action/FromPSGI.pm
 t/basic.t

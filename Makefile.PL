@@ -21,13 +21,14 @@ my %WriteMakefileArgs = (
   "NAME" => "Catalyst::Action::FromPSGI",
   "PREREQ_PM" => {
     "Catalyst::Runtime" => "5.90013",
+    "Plack" => "0.992"
+  },
+  "TEST_REQUIRES" => {
     "HTTP::Request::Common" => 0,
-    "Plack" => "0.9920",
     "Test::More" => "0.88",
     "Web::Simple" => "0.016"
   },
-  "TEST_REQUIRES" => {},
-  "VERSION" => "0.001004",
+  "VERSION" => "0.001005",
   "test" => {
     "TESTS" => "t/*.t"
   }
