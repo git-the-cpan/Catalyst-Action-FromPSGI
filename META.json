@@ -4,7 +4,7 @@
       "Arthur Axel \"fREW\" Schmidt <frioux+cpan@gmail.com>"
    ],
    "dynamic_config" : 0,
-   "generated_by" : "Dist::Zilla version 4.300038, CPAN::Meta::Converter version 2.120921",
+   "generated_by" : "Dist::Zilla version 5.019, CPAN::Meta::Converter version 2.141170",
    "license" : [
       "perl_5"
    ],
@@ -26,7 +26,7 @@
       },
       "runtime" : {
          "requires" : {
-            "Catalyst::Runtime" : "5.90013",
+            "Catalyst::Runtime" : "5.90049004",
             "Plack" : "0.992"
          }
       },
@@ -49,6 +49,6 @@
          "web" : "http://github.com/frioux/Catalyst-Action-FromPSGI"
       }
    },
-   "version" : "0.001005"
+   "version" : "0.001006"
 }
 

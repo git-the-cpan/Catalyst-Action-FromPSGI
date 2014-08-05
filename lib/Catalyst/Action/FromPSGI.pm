@@ -1,14 +1,10 @@
 package Catalyst::Action::FromPSGI;
-{
-  $Catalyst::Action::FromPSGI::VERSION = '0.001005';
-}
-
+$Catalyst::Action::FromPSGI::VERSION = '0.001006';
 # ABSTRACT: Use a PSGI app as a Catalyst action
 
 use strict;
 use warnings;
 use base 'Catalyst::Action';
-use HTTP::Message::PSGI qw(res_from_psgi);
 use Plack::App::URLMap;
 use Plack::Request;
 
@@ -25,14 +21,6 @@ sub nest_app {
    return $nest->to_app
 }
 
-sub snort_psgi {
-   my ($self, $c, $r) = @_;
-
-   $c->res->status($r->code);
-   $c->res->body($r->content);
-   $c->res->headers($r->headers);
-}
-
 sub execute {
    my ($self, $controller, $c, @rest) = @_;
 
@@ -46,8 +34,7 @@ sub execute {
    ;
    $c->req->env->{'psgix.input.buffered'} = 1;
 
-   my $res = res_from_psgi($nest->($c->req->env));
-   $self->snort_psgi($c, $res);
+   $c->res->from_psgi_response($nest->($c->req->env));
 
    return;
 }
@@ -58,13 +45,15 @@ __END__
 
 =pod
 
+=encoding UTF-8
+
 =head1 NAME
 
 Catalyst::Action::FromPSGI - Use a PSGI app as a Catalyst action
 
 =head1 VERSION
 
-version 0.001005
+version 0.001006
 
 =head1 SYNOPSIS
 
@@ -139,7 +128,7 @@ Arthur Axel "fREW" Schmidt <frioux+cpan@gmail.com>
 
 =head1 COPYRIGHT AND LICENSE
 
-This software is copyright (c) 2013 by Arthur Axel "fREW" Schmidt.
+This software is copyright (c) 2014 by Arthur Axel "fREW" Schmidt.
 
 This is free software; you can redistribute it and/or modify it under
 the same terms as the Perl 5 programming language system itself.
